@@ -39,7 +39,7 @@ class Price(models.Model):
 
 
 class Product(AbstractNameEntity):
-    price = models.OneToOneField(Price, on_delete=models.CASCADE, null=True, blank=True)
+    price = models.OneToOneField(Price, on_delete=models.SET_NULL, null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='products')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     sizes = models.ManyToManyField(Size, related_name='products')
