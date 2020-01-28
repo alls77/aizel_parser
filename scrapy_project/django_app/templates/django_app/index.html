@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aizel_Parser</title>
+</head>
+<body>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        <p>Aizel.ru Parser</p>
+        <input type="submit" value="Start parsing"/>
+    </form>
+
+    <div>
+        {% for message in messages %}
+        <p><a href="{% url 'products' %}">{{ message }}</a></p>
+        {% endfor %}
+    </div>
+
+</div>
+</body>
+</html>
