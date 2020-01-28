@@ -5,10 +5,7 @@ from django_project.celery_app import app
 @app.task(name='django_app.tasks.save_to_db')
 def save_to_db(items):
     for item in items:
-        if item['price'] is not None:
-            price, currency = item['price'].split()
-        else:
-            price, currency = None, None
+        price, currency = item['price'].split() if item['price'] is not None else (None, None)
 
         brand, created = Brand.objects.get_or_create(name=item['brand'])
         category, created = Category.objects.get_or_create(name=item['category'])

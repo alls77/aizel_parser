@@ -13,7 +13,7 @@ class ScrapyProjectPipeline(object):
 
     def process_item(self, item, spider):
         self.items.append(item._values)
-        if len(self.items) >= 500:
+        if len(self.items) >= 1000:
             save_to_db.delay(self.items)
             self.items.clear()
         return item

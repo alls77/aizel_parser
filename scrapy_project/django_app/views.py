@@ -26,3 +26,6 @@ class ProductsView(ListView):
     context_object_name = 'products'
     paginate_by = 20
 
+    def get_queryset(self):
+        return Product.objects.prefetch_related('images', 'sizes').select_related('brand', 'category', 'price')
+
