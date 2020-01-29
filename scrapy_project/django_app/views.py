@@ -16,13 +16,12 @@ class IndexView(TemplateView):
 
     def post(self, request):
         self.redis.lpush('aizel:start_urls', 'https://aizel.ru/ua-ru/zhenskoe/obuv')
-        messages.info(request, 'Parsed data')
+        messages.info(request, 'Parser started, after the end a link will appear.')
         return render(request, self.template_name)
 
 
 class ProductsView(ListView):
     template_name = 'django_app/products.html'
-    model = Product
     context_object_name = 'products'
     paginate_by = 20
 
