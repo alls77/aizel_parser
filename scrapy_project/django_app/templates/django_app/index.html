@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aizel_Parser</title>
+</head>
+<body>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        <p>Aizel.ru Parser</p>
+        <input type="submit" value="Start parsing"/>
+    </form>
+
+    <div>
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+
+    <p><a id="txtStatus" href="{% url 'products' %}"></a></p>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script>
+        var workerSocket = new WebSocket(`ws://${window.location.host}/ws/products/`);
+        workerSocket.onmessage = function (e) {
+            var data = JSON.parse(e.data);
+            if (data['update']) {
+                $('#txtStatus').text(data['update']);
+            }
+        };
+        workerSocket.onclose = function (e) {
+            console.error('Socket closed unexpectedly');
+        };
+    </script>
+
+</div>
+</body>
+</html>
